@@ -52,11 +52,7 @@ echo "Installing prettier..."
 echo "Prettifing files..."
 echo "Files:"
 if $INPUT_DRY; then
-  echo "BASE REF: origin/$GITHUB_BASE_REF"
-  echo "COMMIT: $GITHUB_SHA"
-  MERGE_BASE=$(git merge-base origin/$GITHUB_BASE_REF $GITHUB_SHA)
-  echo "MERGE BASE: $MERGE_BASE"
-  git diff --name-only --diff-filter=d $(git merge-base origin/$GITHUB_BASE_REF $GITHUB_SHA) | grep -E "\.(js|ts)$" | xargs prettier $INPUT_PRETTIER_OPTIONS
+  git diff --name-only --diff-filter=d $(git merge-base origin/$GITHUB_BASE_REF HEAD) | grep -E "\.(js|ts)$" | xargs prettier $INPUT_PRETTIER_OPTIONS
 else
   prettier $INPUT_PRETTIER_OPTIONS || echo "Problem running prettier with $INPUT_PRETTIER_OPTIONS"
 fi
