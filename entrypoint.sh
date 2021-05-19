@@ -52,7 +52,7 @@ fi
 echo "Prettifing files..."
 echo "Files:"
 if $INPUT_DRY; then
-  git diff --name-only --diff-filter=d $GITHUB_BASE_REF..$GITHUB_SHA | xargs prettier $INPUT_PRETTIER_OPTIONS
+  git diff --name-only --diff-filter=d $GITHUB_BASE_REF | xargs prettier $INPUT_PRETTIER_OPTIONS
 else
   prettier $INPUT_PRETTIER_OPTIONS || echo "Problem running prettier with $INPUT_PRETTIER_OPTIONS"
 fi
