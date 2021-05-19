@@ -3,22 +3,22 @@
 # x would be for showing the commands before they are executed
 set -eu
 
-# FUNCTIONS
-# Function for setting up git env in the docker container (copied from https://github.com/stefanzweifel/git-auto-commit-action/blob/master/entrypoint.sh)
-_git_setup ( ) {
-    cat <<- EOF > $HOME/.netrc
-      machine github.com
-      login $GITHUB_ACTOR
-      password $GITHUB_TOKEN
-      machine api.github.com
-      login $GITHUB_ACTOR
-      password $GITHUB_TOKEN
-EOF
-    chmod 600 $HOME/.netrc
+# # FUNCTIONS
+# # Function for setting up git env in the docker container (copied from https://github.com/stefanzweifel/git-auto-commit-action/blob/master/entrypoint.sh)
+# _git_setup ( ) {
+#     cat <<- EOF > $HOME/.netrc
+#       machine github.com
+#       login $GITHUB_ACTOR
+#       password $GITHUB_TOKEN
+#       machine api.github.com
+#       login $GITHUB_ACTOR
+#       password $GITHUB_TOKEN
+# EOF
+#     chmod 600 $HOME/.netrc
 
-    git config --global user.email "actions@github.com"
-    git config --global user.name "GitHub Action"
-}
+#     git config --global user.email "actions@github.com"
+#     git config --global user.name "GitHub Action"
+# }
 
 # Checks if any files are changed
 _git_changed() {
@@ -63,8 +63,8 @@ if _git_changed; then
     echo "Prettier found unpretty files!"
     exit 1
   else
-    # Calling method to configure the git environemnt
-    _git_setup
+    # # Calling method to configure the git environemnt
+    # _git_setup
 
     if $INPUT_ONLY_CHANGED; then
       # --diff-filter=d excludes deleted files
