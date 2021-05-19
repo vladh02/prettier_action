@@ -51,7 +51,10 @@ fi
 
 echo "Prettifing files..."
 echo "Files:"
-prettier $INPUT_PRETTIER_OPTIONS || echo "Problem running prettier with $INPUT_PRETTIER_OPTIONS"
+if $INPUT_DRY; then
+  git diff --name-only --diff-filter=d $GITHUB_BASE_REF..HEAD | xargs prettier $INPUT_PRETTIER_OPTIONS
+else
+  prettier $INPUT_PRETTIER_OPTIONS || echo "Problem running prettier with $INPUT_PRETTIER_OPTIONS"
 
 # To keep runtime good, just continue if something was changed
 if _git_changed; then
